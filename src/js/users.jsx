@@ -31,9 +31,12 @@ var Users = React.createClass({
     render: function() {
         if (this.state.users) {
             return (
-                <div className="list-group">
-                    {this.state.users.map(this.renderUser)}
-                </div>
+                <section>
+                    <h2>All users</h2>
+                    <div className="list-group">
+                        {this.state.users.map(this.renderUser)}
+                    </div>
+                </section>
             );
         } else {
             return <Loading />;

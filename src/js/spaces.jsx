@@ -34,9 +34,12 @@ var Spaces = React.createClass({
     render: function() {
         if (this.state.spaces) {
             return (
-                <div className="list-group">
-                    {this.state.spaces.map(this.renderSpace)}
-                </div>
+                <section>
+                    <h2>All spaces</h2>
+                    <div className="list-group">
+                        {this.state.spaces.map(this.renderSpace)}
+                    </div>
+                </section>
             );
         } else {
             return <Loading />;
