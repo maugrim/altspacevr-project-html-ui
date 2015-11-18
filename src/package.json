@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "dependencies": {
+        "babel-core": "6.1.21",
+        "classnames": "2.2.0",
+        "history": "1.13.1",
+        "react": "0.14.2",
+        "react-dom": "0.14.2",
+        "react-router": "1.0.0"
+    },
+    "devDependencies": {
+        "babel": "^6.1.18",
+        "babel-loader": "^6.2.0",
+        "babel-preset-react": "^6.1.18",
+        "css-loader": "^0.23.0",
+        "eslint": "^1.9.0",
+        "eslint-plugin-react": "^3.9.0",
+        "style-loader": "^0.13.0",
+        "webpack": "^1.12.6",
+        "webpack-dev-server": "^1.12.1"
+    },
+    "scripts": {
+        "lint": "eslint js --ext=.js,.jsx",
+        "dev": "webpack-dev-server"
+    }
+}
