@@ -16,7 +16,7 @@ var App = React.createClass({
         return (
             <main>
                 <Navigation path={this.props.location.pathname}></Navigation>
-                <div className="container">
+                <div id="content" className="container">
                     {this.props.children}
                 </div>
             </main>
