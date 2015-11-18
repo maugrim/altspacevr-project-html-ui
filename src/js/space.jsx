@@ -12,16 +12,16 @@ var Space = React.createClass({
     },
 
     componentDidMount: function() {
-        // todo: fix up data fetching to do it all at once
+        this.loadData();
+    },
+
+    loadData: function() {
         var self = this;
-        data.User.getAll().then(function(users) {
+        return Promise.all([data.User.getAll(), data.Space.getById(this.props.params.id)]).then(function(results) {
             if (self.isMounted()) {
-                self.setState({ users: users });
-            }
-        })
-        data.Space.getById(this.props.params.id).then(function(space) {
-            if (self.isMounted()) {
-                self.setState({ space: space });
+                var users = results[0];
+                var space = results[1];
+                self.setState({ users: users, space: space });
             }
         });
     },
@@ -51,7 +51,7 @@ var Space = React.createClass({
     onSubmit: function() {
         var self = this;
         data.Space.updateById(this.state.space.id, this.state.space).then(function() {
-            console.log("Updated space " + self.state.space.id);
+            console.log("Updated space " + self.state.space.id + ".");
         });
     },
 
@@ -60,7 +60,7 @@ var Space = React.createClass({
     },
 
     render: function() {
-        if (this.state.space) {
+        if (this.state.space && this.state.users) {
             return (
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">

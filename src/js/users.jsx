@@ -12,8 +12,12 @@ var Users = React.createClass({
     },
 
     componentDidMount: function() {
+        this.loadUsers();
+    },
+
+    loadUsers: function() {
         var self = this;
-        data.User.getAll().then(function(users) {
+        return data.User.getAll().then(function(users) {
             if (self.isMounted()) {
                 self.setState({ users: users });
             }
