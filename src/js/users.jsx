@@ -1,5 +1,8 @@
 var React = require("react");
+var ReactRouter = require("react-router");
 var Loading = require("./loading.jsx");
+var Link = ReactRouter.Link;
+
 var data = require("./data.js");
 
 var Users = React.createClass({
@@ -19,18 +22,18 @@ var Users = React.createClass({
 
     renderUser: function(user, idx) {
         return (
-            <li className="list-group-item" key={idx}>
+            <Link className="list-group-item" to={"/user/" + user.id} key={idx}>
                 {user.first_name + " " + user.last_name}
-            </li>
+            </Link>
         );
     },
 
     render: function() {
         if (this.state.users) {
             return (
-                <ul className="list-group">
+                <div className="list-group">
                     {this.state.users.map(this.renderUser)}
-                </ul>
+                </div>
             );
         } else {
             return <Loading />;

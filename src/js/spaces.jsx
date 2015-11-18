@@ -1,5 +1,8 @@
 var React = require("react");
+var ReactRouter = require("react-router");
 var Loading = require("./loading.jsx");
+var Link = ReactRouter.Link;
+
 var data = require("./data.js");
 
 var Spaces = React.createClass({
@@ -21,19 +24,19 @@ var Spaces = React.createClass({
 
     renderSpace: function(space, idx) {
         return (
-            <li className="list-group-item" key={idx}>
+            <Link className="list-group-item" to={"/space/" + space.id} key={idx}>
                 <h4 className="list-group-item-heading">{space.title}</h4>
                 <p className="list-group-item-text">{space.description}</p>
-            </li>
+            </Link>
         );
     },
 
     render: function() {
         if (this.state.spaces) {
             return (
-                <ul className="list-group">
+                <div className="list-group">
                     {this.state.spaces.map(this.renderSpace)}
-                </ul>
+                </div>
             );
         } else {
             return <Loading />;

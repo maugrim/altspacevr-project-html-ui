@@ -7,7 +7,9 @@ var Route = ReactRouter.Route;
 
 var Navigation = require("./navigation.jsx");
 var Spaces = require("./spaces.jsx");
+var Space = require("./space.jsx");
 var Users = require("./users.jsx");
+var User = require("./user.jsx");
 
 require("./app.css");
 
@@ -28,7 +30,9 @@ ReactDOM.render((
     <Router>
         <Route path="/" component={App}>
             <Route path="spaces" component={Spaces}/>
+            <Route path="space/:id" component={Space}/>
             <Route path="users" component={Users}/>
+            <Route path="user/:id" component={User}/>
         </Route>
     </Router>
 ), $("#app")[0]);
