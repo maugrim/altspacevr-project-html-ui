@@ -14,17 +14,27 @@ var Spaces = React.createClass({
     },
 
     componentDidMount: function() {
+        this.loadSpaces();
+    },
+
+    loadSpaces: function() {
         var self = this;
-        data.Space.getAll().then(function(spaces) {
+        return data.Space.getAll().then(function(spaces) {
             if (self.isMounted()) {
                 self.setState({ spaces: spaces });
             }
         });
     },
 
+    deleteSpace: function(space, e) {
+        e.preventDefault();
+        data.Space.deleteById(space.id).then(this.loadSpaces);
+    },
+
     renderSpace: function(space, idx) {
         return (
             <Link className="list-group-item" to={"/space/" + space.id} key={idx}>
+                <span onClick={this.deleteSpace.bind(this, space)} className="pull-right glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
                 <h4 className="list-group-item-heading">{space.title}</h4>
                 <p className="list-group-item-text">{space.description}</p>
             </Link>
