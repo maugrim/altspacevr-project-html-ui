@@ -16,6 +16,7 @@ var User = React.createClass({
     },
 
     loadUser: function() {
+        var self = this;
         return data.User.getById(this.props.params.id).then(function(user) {
             if (self.isMounted()) {
                 self.setState({ user: user });

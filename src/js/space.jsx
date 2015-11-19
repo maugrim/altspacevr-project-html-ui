@@ -79,14 +79,13 @@ var Space = React.createClass({
 
     onSubmit: function() {
         var self = this;
+        var newSpace = this.updateSpace(this.state.space);
         if (this.state.space.id) {
-            var newSpace = this.updateSpace(this.state.space);
             data.Space.updateById(this.state.space.id, newSpace).then(function(space) {
                 console.log("Updated space " + self.state.space.id + ".");
                 self.setState({ space: space });
             });
         } else {
-            var newSpace = this.updateSpace(this.state.space);
             newSpace.created_by = this.getAdmin().id;
             data.Space.create(newSpace).then(function(space) {
                 console.log("Created space " + self.state.space.id + ".");

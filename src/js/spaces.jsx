@@ -87,7 +87,7 @@ var Spaces = React.createClass({
             <span onClick={this.toggleWelcome.bind(this, space)} className={classes} aria-hidden="true"
                   title={space.welcome ? "This space is currently set as the welcome space." : "Click to set this space as the welcome space."}>
             </span>
-        )
+        );
     },
 
     renderSpace: function(space, idx) {
