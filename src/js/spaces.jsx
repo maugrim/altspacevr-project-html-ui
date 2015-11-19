@@ -74,7 +74,11 @@ var Spaces = React.createClass({
     },
 
     renderDelete: function(space) {
-        return <span onClick={this.deleteSpace.bind(this, space)} className="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+        return (
+            <span onClick={this.deleteSpace.bind(this, space)} className="glyphicon glyphicon-remove text-danger" aria-hidden="true"
+                  title="Click to delete this space.">
+            </span>
+        );
     },
 
     renderWelcome: function(space) {
