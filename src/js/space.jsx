@@ -43,6 +43,13 @@ var Space = React.createClass({
         });
     },
 
+    // Returns the admin user, or null if there is no admin. (There should be exactly one; we just get the first.)
+    // This should probably be a helper function on the User model.
+    getAdmin: function() {
+        var admins = this.state.users.filter(function(user) { return user.admin; });
+        return admins.length ? admins[0] : null;
+    },
+
     // Return the IDs of the currently selected members underneath the member select element.
     getSelectedMembers: function(membersEl) {
         // options isn't a real JS array, so no map/filter
@@ -62,6 +69,7 @@ var Space = React.createClass({
         this.state.space.featured = this.refs.featured.checked;
         this.state.space.private = this.refs.private.checked;
         this.state.space.members = this.getSelectedMembers(this.refs.members);
+        this.state.space.created_by = this.getAdmin().id;
         this.setState({ space: this.state.space });
     },
 

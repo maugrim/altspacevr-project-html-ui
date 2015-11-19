@@ -12,19 +12,30 @@ var Spaces = React.createClass({
 
     getInitialState: function() {
         return {
-            spaces: null
+            spaces: null,
+            usersById: null // used to look up users who created spaces
         };
     },
 
     componentDidMount: function() {
-        this.loadSpaces();
+        this.loadData();
+    },
+
+    loadUsers: function() {
+        return data.User.getAll();
     },
 
     loadSpaces: function() {
+        return data.Space.getAll();
+    },
+
+    loadData: function() {
         var self = this;
-        return data.Space.getAll().then(function(spaces) {
+        return Promise.all([this.loadUsers(), this.loadSpaces()]).then(function(results) {
             if (self.isMounted()) {
-                self.setState({ spaces: spaces });
+                var users = results[0];
+                var spaces = results[1];
+                self.setState({ usersById: _.indexBy(users, "id"), spaces: spaces });
             }
         });
     },
@@ -38,11 +49,18 @@ var Spaces = React.createClass({
         data.Space.deleteById(space.id).then(this.loadSpaces);
     },
 
+    renderCreator: function(creator) {
+        if (creator)
+            return <small>Created by {creator.first_name} {creator.last_name}</small>;
+    },
+
     renderSpace: function(space, idx) {
         return (
             <Link className="list-group-item" to={"/space/" + space.id} key={idx}>
                 <span onClick={this.deleteSpace.bind(this, space)} className="pull-right glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
-                <h4 className="list-group-item-heading">{space.title}</h4>
+                <h4 className="list-group-item-heading">
+                    {space.title} {this.renderCreator(this.state.usersById[space.created_by])}
+                </h4>
                 <p className="list-group-item-text">{space.description}</p>
             </Link>
         );
