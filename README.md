@@ -19,7 +19,7 @@ The codebase is built into a Javascript bundle via [webpack][]. You can run [web
 $ npm run dev
 ```
 
-Once it's running, head to http://localhost:8000 to see it in action.
+Once it's running, head to [http://localhost:8080](http://localhost:8080) to see it in action.
 
 ## Tests
 
@@ -32,3 +32,4 @@ $ npm run lint
 [npm]: https://www.npmjs.com/
 [webpack]: https://webpack.github.io/
 [webpack-dev-server]: https://webpack.github.io/docs/webpack-dev-server.html
+[eslint]: http://eslint.org/
