@@ -73,11 +73,12 @@ var Space = React.createClass({
         return space;
     },
 
-    onChange: function() {
+    onChange: function(e) {
         this.setState({ space: this.updateSpace(this.state.space) });
     },
 
-    onSubmit: function() {
+    onSubmit: function(e) {
+        e.preventDefault();
         var self = this;
         var newSpace = this.updateSpace(this.state.space);
         if (this.state.space.id) {
