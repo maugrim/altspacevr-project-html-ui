@@ -98,9 +98,9 @@ var Spaces = React.createClass({
                     {this.renderDelete(space)}
                 </div>
                 <h4 className="list-group-item-heading">
-                    {space.title} {this.renderCreator(this.state.usersById[space.created_by])}
+                    {space.title || "Untitled Space"} {this.renderCreator(this.state.usersById[space.created_by])}
                 </h4>
-                <p className="list-group-item-text">{space.description}</p>
+                <p className="list-group-item-text">{space.description || "No description provided."}</p>
             </Link>
         );
     },
