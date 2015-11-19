@@ -63,25 +63,32 @@ var Space = React.createClass({
         return values;
     },
 
+    // Updates the given space model with the current data in the UI.
+    updateSpace: function(space) {
+        space.title = this.refs.title.value;
+        space.description = this.refs.description.value;
+        space.featured = this.refs.featured.checked;
+        space.private = this.refs.private.checked;
+        space.members = this.getSelectedMembers(this.refs.members);
+        return space;
+    },
+
     onChange: function() {
-        this.state.space.title = this.refs.title.value;
-        this.state.space.description = this.refs.description.value;
-        this.state.space.featured = this.refs.featured.checked;
-        this.state.space.private = this.refs.private.checked;
-        this.state.space.members = this.getSelectedMembers(this.refs.members);
-        this.state.space.created_by = this.getAdmin().id;
-        this.setState({ space: this.state.space });
+        this.setState({ space: this.updateSpace(this.state.space) });
     },
 
     onSubmit: function() {
         var self = this;
         if (this.state.space.id) {
-            data.Space.updateById(this.state.space.id, this.state.space).then(function(space) {
+            var newSpace = this.updateSpace(this.state.space);
+            data.Space.updateById(this.state.space.id, newSpace).then(function(space) {
                 console.log("Updated space " + self.state.space.id + ".");
                 self.setState({ space: space });
             });
         } else {
-            data.Space.create(this.state.space).then(function(space) {
+            var newSpace = this.updateSpace(this.state.space);
+            newSpace.created_by = this.getAdmin().id;
+            data.Space.create(newSpace).then(function(space) {
                 console.log("Created space " + self.state.space.id + ".");
                 self.setState({ space: space });
                 self.props.history.push("/space/" + space.id);
