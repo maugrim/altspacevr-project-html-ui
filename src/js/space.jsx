@@ -2,6 +2,8 @@ var React = require("react");
 var Loading = require("./loading.jsx");
 var data = require("./data.js");
 
+// A form showing information about a single space (either an existing space or a new
+// space that a user is provisionally creating.)
 var Space = React.createClass({
 
     getInitialState: function() {
@@ -60,7 +62,7 @@ var Space = React.createClass({
         this.state.space.featured = this.refs.featured.checked;
         this.state.space.private = this.refs.private.checked;
         this.state.space.members = this.getSelectedMembers(this.refs.members);
-        this.setState({ space: this.state.space })
+        this.setState({ space: this.state.space });
     },
 
     onSubmit: function() {
@@ -75,7 +77,7 @@ var Space = React.createClass({
                 console.log("Created space " + self.state.space.id + ".");
                 self.setState({ space: space });
                 self.props.history.push("/space/" + space.id);
-            })
+            });
         }
     },
 

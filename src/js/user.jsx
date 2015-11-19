@@ -2,6 +2,7 @@ var React = require("react");
 var Loading = require("./loading.jsx");
 var data = require("./data.js");
 
+// A form showing information about a single user. TODO: flesh out.
 var User = React.createClass({
 
     getInitialState: function() {

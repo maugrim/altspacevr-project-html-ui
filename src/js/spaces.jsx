@@ -6,6 +6,8 @@ var Link = ReactRouter.Link;
 
 var data = require("./data.js");
 
+// The list of spaces that a user sees when they are browsing the directory. Contains links
+// to edit each space, create new spaces, and delete listed spaces.
 var Spaces = React.createClass({
 
     getInitialState: function() {
@@ -71,7 +73,7 @@ var Spaces = React.createClass({
                     </div>
                 );
             } else {
-                return <p>There are no spaces yet. Perhaps you should <Link to="/spaces/new">create</Link> one?</p>
+                return <p>There are no spaces yet. Perhaps you should <Link to="/spaces/new">create</Link> one?</p>;
             }
         } else {
             return <Loading />;

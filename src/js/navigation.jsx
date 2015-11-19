@@ -3,6 +3,7 @@ var React = require("react");
 var ReactRouter = require("react-router");
 var Link = ReactRouter.Link;
 
+// The navigation bar at the top of the page.
 var Navigation = React.createClass({
 
     propTypes: {
@@ -10,6 +11,8 @@ var Navigation = React.createClass({
     },
 
     renderLink: function(destination, text) {
+        // react-router has a feature where links can know if they are active, but it's
+        // hard to use together with Bootstrap's navbar list entries in an obvious way
         var linkClass = classNames({ active: this.props.path === destination });
         return <li className={linkClass}><Link to={destination}>{text}</Link></li>;
     },

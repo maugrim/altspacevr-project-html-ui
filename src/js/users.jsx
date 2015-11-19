@@ -5,6 +5,7 @@ var Link = ReactRouter.Link;
 
 var data = require("./data.js");
 
+// The list of all the users in the directory.
 var Users = React.createClass({
 
     getInitialState: function() {
