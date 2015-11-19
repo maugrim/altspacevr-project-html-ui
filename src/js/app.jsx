@@ -30,6 +30,7 @@ ReactDOM.render((
     <Router>
         <Route path="/" component={App}>
             <Route path="spaces" component={Spaces}/>
+            <Route path="spaces/new" component={Space}/>
             <Route path="space/:id" component={Space}/>
             <Route path="users" component={Users}/>
             <Route path="user/:id" component={User}/>

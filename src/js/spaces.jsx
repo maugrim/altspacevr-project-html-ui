@@ -26,6 +26,10 @@ var Spaces = React.createClass({
         });
     },
 
+    onCreate: function() {
+        this.props.history.push("/spaces/new");
+    },
+
     deleteSpace: function(space, e) {
         e.preventDefault();
         data.Space.deleteById(space.id).then(this.loadSpaces);
@@ -49,6 +53,7 @@ var Spaces = React.createClass({
                     <div className="list-group">
                         {this.state.spaces.map(this.renderSpace)}
                     </div>
+                    <button onClick={this.onCreate} type="button" className="btn btn-primary">Create space</button>
                 </section>
             );
         } else {

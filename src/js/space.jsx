@@ -15,9 +15,24 @@ var Space = React.createClass({
         this.loadData();
     },
 
+    loadSpace: function() {
+        if (this.props.params.id) {
+            return data.Space.getById(this.props.params.id);
+        } else {
+            // create a new space
+            return new Promise(function(resolve) {
+                resolve({});
+            });
+        }
+    },
+
+    loadUsers: function() {
+        return data.User.getAll();
+    },
+
     loadData: function() {
         var self = this;
-        return Promise.all([data.User.getAll(), data.Space.getById(this.props.params.id)]).then(function(results) {
+        return Promise.all([this.loadUsers(), this.loadSpace()]).then(function(results) {
             if (self.isMounted()) {
                 var users = results[0];
                 var space = results[1];
@@ -50,9 +65,18 @@ var Space = React.createClass({
 
     onSubmit: function() {
         var self = this;
-        data.Space.updateById(this.state.space.id, this.state.space).then(function() {
-            console.log("Updated space " + self.state.space.id + ".");
-        });
+        if (this.state.space.id) {
+            data.Space.updateById(this.state.space.id, this.state.space).then(function(space) {
+                console.log("Updated space " + self.state.space.id + ".");
+                self.setState({ space: space });
+            });
+        } else {
+            data.Space.create(this.state.space).then(function(space) {
+                console.log("Created space " + self.state.space.id + ".");
+                self.setState({ space: space });
+                self.props.history.push("/space/" + space.id);
+            })
+        }
     },
 
     renderMemberOption: function(user, idx) {
@@ -95,7 +119,9 @@ var Space = React.createClass({
                             Which users are allowed to enter this space.
                         </span>
                     </div>
-                    <button onSubmit={this.onSubmit} type="submit" className="btn btn-default">Update</button>
+                    <button onSubmit={this.onSubmit} type="submit" className="btn btn-default">
+                        {this.state.space.id ? "Update" : "Create"}
+                    </button>
                 </form>
             );
         } else {
