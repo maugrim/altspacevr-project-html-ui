@@ -73,7 +73,7 @@ var Space = React.createClass({
         return space;
     },
 
-    onChange: function(e) {
+    onChange: function() {
         this.setState({ space: this.updateSpace(this.state.space) });
     },
 

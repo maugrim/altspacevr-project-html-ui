@@ -28,7 +28,7 @@ var Users = React.createClass({
 
     renderGravatar: function(user) {
         if (user.email) {
-            return <Gravatar email={user.email} size={22}></Gravatar>
+            return <Gravatar email={user.email} size={22}></Gravatar>;
         }
     },
 
