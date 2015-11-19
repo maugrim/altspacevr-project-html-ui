@@ -5,3 +5,7 @@ body {
 #content {
     padding: 30px 15px;
 }
+
+.space-controls>* { /* the icons next to a space that allow you to flip welcome status, delete */
+    margin-left: 10px;
+}

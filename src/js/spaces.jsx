@@ -1,4 +1,5 @@
 var _ = require("lodash");
+var classNames = require("classnames");
 var React = require("react");
 var ReactRouter = require("react-router");
 var Loading = require("./loading.jsx");
@@ -46,7 +47,25 @@ var Spaces = React.createClass({
 
     deleteSpace: function(space, e) {
         e.preventDefault();
-        data.Space.deleteById(space.id).then(this.loadSpaces);
+        data.Space.deleteById(space.id).then(this.loadData);
+    },
+
+    toggleWelcome: function(space, e) {
+        e.preventDefault();
+        if (!space.welcome) {
+            // unwelcome any other spaces and welcome this one
+            var updates = [];
+            this.state.spaces.forEach(function(otherSpace) {
+                var isWelcome = (space === otherSpace);
+                if (otherSpace.welcome !== isWelcome) {
+                    otherSpace.welcome = isWelcome;
+                    updates.push(data.Space.updateById(otherSpace.id, otherSpace));
+                }
+            });
+            Promise.all(updates).then(this.loadData);
+        } else {
+            // TODO: consider the UX for this case
+        }
     },
 
     renderCreator: function(creator) {
@@ -54,10 +73,26 @@ var Spaces = React.createClass({
             return <small>Created by {creator.first_name} {creator.last_name}</small>;
     },
 
+    renderDelete: function(space) {
+        return <span onClick={this.deleteSpace.bind(this, space)} className="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+    },
+
+    renderWelcome: function(space) {
+        var classes = classNames(["glyphicon", "glyphicon-home", space.welcome ? "text-primary" : "text-default"]);
+        return (
+            <span onClick={this.toggleWelcome.bind(this, space)} className={classes} aria-hidden="true"
+                  title={space.welcome ? "This space is currently set as the welcome space." : "Click to set this space as the welcome space."}>
+            </span>
+        )
+    },
+
     renderSpace: function(space, idx) {
         return (
             <Link className="list-group-item" to={"/space/" + space.id} key={idx}>
-                <span onClick={this.deleteSpace.bind(this, space)} className="pull-right glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+                <div className="space-controls pull-right">
+                    {this.renderWelcome(space)}
+                    {this.renderDelete(space)}
+                </div>
                 <h4 className="list-group-item-heading">
                     {space.title} {this.renderCreator(this.state.usersById[space.created_by])}
                 </h4>
